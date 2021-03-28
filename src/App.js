@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import Contact from "./Components/Contact";
+import ContactsDisplay from "./Components/ContactsDisplay";
+import Form from "./Components/Form";
 import "./styles.css";
 
 const App = () => {
   //states
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", id: 1, number: "(0414) 7861458" }
+    { name: "Arto Hellas", number: "(0401) 23456" },
+    { name: "Ada Lovelace", number: "(3944) 5323523" },
+    { name: "Dan Abramov", number: "(1243) 234345" },
+    { name: "Mary Poppendieck", number: "(3923) 6423122" }
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [allContact, setAllContact] = useState("");
 
   //functions
   const setContact = (e) => {
@@ -17,6 +22,7 @@ const App = () => {
       ? setNewName(e.target.value)
       : setNewNumber(e.target.value);
   };
+
   const numberFormatter = (number) => {
     const regex = /^[0-9]{0,4}/;
     const firstNumbers = number.match(regex).join("");
@@ -49,40 +55,24 @@ const App = () => {
 
   //rendering
   return (
-    <div>
-      <h2>Phonebook</h2>
-      <form onSubmit={addNewContact}>
-        <div>
-          Name:
-          <input
-            value={newName}
-            placeholder="Insert Your name"
-            onChange={setContact}
-            name="name"
-          />
-        </div>
-        <div>
-          Number:
-          <input
-            value={newNumber}
-            placeholder="Insert Your phone number"
-            onChange={setContact}
-            name="number"
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+    <section>
+      <h1>Phonebook</h1>
+      <div>
+        <span>Filter show With </span>
+        <input
+          onChange={(e) => setAllContact(e.target.value)}
+          value={allContact}
+        />
+      </div>
+      <Form
+        actions={{ addNewContact, setContact }}
+        values={{ newName, newNumber }}
+      />
       <h2>Numbers</h2>
       <div>
-        <ul>
-          {persons.map((person) => (
-            <Contact data={person} key={person.id} />
-          ))}
-        </ul>
+        <ContactsDisplay persons={persons} filterContacts={allContact} />
       </div>
-    </div>
+    </section>
   );
 };
 
