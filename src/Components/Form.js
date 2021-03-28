@@ -8,21 +8,27 @@ const Form = ({ actions, values }) => {
       <fieldset>
         <legend>Add a new</legend>
         <div>
-          Name:
+          <label for="name">Name: </label>
           <input
             value={newName}
             placeholder="Insert Your name"
             onChange={setContact}
             name="name"
+            required
+            pattern="[a-zA-z\s]{0,}"
+            title="Only words and spaces are accepted"
           />
         </div>
         <div>
-          Number:
+          <label for="number">Number: </label>
           <input
             value={newNumber}
             placeholder="Insert Your phone number"
             onChange={setContact}
             name="number"
+            required
+            pattern="[0-9]{11,11}"
+            title="Only numbers are allowed and 11 number are required"
           />
         </div>
         <div>

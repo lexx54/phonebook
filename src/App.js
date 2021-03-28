@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ContactsDisplay from "./Components/ContactsDisplay";
 import Form from "./Components/Form";
+import Filter from "./Components/FIlter";
 import "./styles.css";
 
 const App = () => {
@@ -57,13 +58,7 @@ const App = () => {
   return (
     <section>
       <h1>Phonebook</h1>
-      <div>
-        <span>Filter show With </span>
-        <input
-          onChange={(e) => setAllContact(e.target.value)}
-          value={allContact}
-        />
-      </div>
+      <Filter action={setAllContact} value={allContact} />
       <Form
         actions={{ addNewContact, setContact }}
         values={{ newName, newNumber }}
