@@ -1,7 +1,11 @@
 import React from "react";
 
 const Contact = ({ data }) => {
-  return <li>{data.name}</li>;
+  return (
+    <li>
+      {data.name} {data.number}
+    </li>
+  );
 };
 
 export default Contact;
