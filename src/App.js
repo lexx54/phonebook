@@ -8,16 +8,29 @@ const App = () => {
 
   //functions
   const setContactName = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setNewName(e.target.value);
   };
+
+  const isNameSaved = (nameLooked) => {
+    const regex = new RegExp(nameLooked, "ig");
+    let nameSaved;
+    persons.forEach(({ name }) => {
+      if (regex.test(name)) nameSaved = true;
+    });
+    return nameSaved;
+  };
+
   const addNewContact = (e) => {
     e.preventDefault();
     const contactData = {
       name: newName,
       id: persons.length + 1
     };
-    setPersons(persons.concat(contactData));
+    isNameSaved(newName)
+      ? alert(`${newName} is already added to the Phonebook`)
+      : setPersons(persons.concat(contactData));
+
     setNewName("");
   };
   return (
@@ -25,7 +38,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addNewContact}>
         <div>
-          name:{" "}
+          Name:
           <input
             value={newName}
             placeholder="Insert Your name"
